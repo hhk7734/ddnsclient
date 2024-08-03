@@ -33,3 +33,11 @@ remove_local: ## Update remote branches and remove local branches
 	git remote update --prune
 	git switch --detach origin/main
 	@git for-each-ref --format '%(refname:short)' refs/heads | xargs -r -t git branch -D
+
+.PHONY: manifests
+manifests: ## Generate WebhookConfiguration, ClusterRole and CustomResourceDefinition objects.
+	controller-gen crd paths="./..." output:crd:artifacts:config=deploy/chart/files/crds
+
+.PHONY: generate
+generate: ## Generate code containing DeepCopy, DeepCopyInto, and DeepCopyObject method implementations.
+	controller-gen object paths="./..."

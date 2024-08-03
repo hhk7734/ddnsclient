@@ -5,6 +5,7 @@ import (
 
 	"github.com/go-logr/zapr"
 	"github.com/hhk7734/ddnsclient.go/internal/pkg/logger"
+	"github.com/hhk7734/ddnsclient.go/pkg/apis/networking.loliot.net/v1alpha1"
 	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
 	"go.uber.org/zap"
@@ -28,6 +29,7 @@ var (
 
 func init() {
 	utilruntime.Must(clientgoscheme.AddToScheme(scheme))
+	utilruntime.Must(v1alpha1.AddToScheme(scheme))
 }
 
 func main() {
