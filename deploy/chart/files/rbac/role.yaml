@@ -1,0 +1,32 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: manager
+rules:
+- apiGroups:
+  - networking.loliot.net
+  resources:
+  - ddns
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - networking.loliot.net
+  resources:
+  - ddns/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - networking.loliot.net
+  resources:
+  - ddns/status
+  verbs:
+  - get
+  - patch
+  - update

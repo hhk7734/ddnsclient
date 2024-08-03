@@ -36,7 +36,9 @@ remove_local: ## Update remote branches and remove local branches
 
 .PHONY: manifests
 manifests: ## Generate WebhookConfiguration, ClusterRole and CustomResourceDefinition objects.
-	controller-gen crd paths="./..." output:crd:artifacts:config=deploy/chart/files/crds
+	controller-gen paths="./..." \
+		crd output:crd:artifacts:config=deploy/chart/files/crds \
+		rbac:roleName=manager output:rbac:artifacts:config=deploy/chart/files/rbac
 
 .PHONY: generate
 generate: ## Generate code containing DeepCopy, DeepCopyInto, and DeepCopyObject method implementations.
