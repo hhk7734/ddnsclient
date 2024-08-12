@@ -41,6 +41,11 @@ spec:
             type: object
           status:
             description: DDNSStatus defines the observed state of DDNS
+            properties:
+              lastUpdateTime:
+                description: Information when was the last time the DDNS was updated.
+                format: date-time
+                type: string
             type: object
         type: object
     served: true

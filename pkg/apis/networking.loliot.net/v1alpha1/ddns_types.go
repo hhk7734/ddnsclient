@@ -4,6 +4,17 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
+// DDNSSpec defines the desired state of DDNS
+type DDNSSpec struct {
+}
+
+// DDNSStatus defines the observed state of DDNS
+type DDNSStatus struct {
+	// Information when was the last time the DDNS was updated.
+	// +optional
+	LastUpdateTime *metav1.Time `json:"lastUpdateTime,omitempty"`
+}
+
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 
@@ -14,14 +25,6 @@ type DDNS struct {
 
 	Spec   DDNSSpec   `json:"spec,omitempty"`
 	Status DDNSStatus `json:"status,omitempty"`
-}
-
-// DDNSSpec defines the desired state of DDNS
-type DDNSSpec struct {
-}
-
-// DDNSStatus defines the observed state of DDNS
-type DDNSStatus struct {
 }
 
 // +kubebuilder:object:root=true
