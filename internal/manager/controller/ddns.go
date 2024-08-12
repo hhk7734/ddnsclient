@@ -8,6 +8,7 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/log"
 
+	"github.com/hhk7734/ddnsclient.go/internal/dynamicip"
 	networkingv1alpha1 "github.com/hhk7734/ddnsclient.go/pkg/apis/networking.loliot.net/v1alpha1"
 )
 
@@ -15,6 +16,7 @@ import (
 type DDNSReconciler struct {
 	client.Client
 	Scheme *runtime.Scheme
+	IPer   dynamicip.IPer
 }
 
 // +kubebuilder:rbac:groups=networking.loliot.net,resources=ddns,verbs=get;list;watch;create;update;patch;delete
@@ -34,6 +36,10 @@ func (r *DDNSReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.
 
 // SetupWithManager sets up the controller with the Manager.
 func (r *DDNSReconciler) SetupWithManager(mgr ctrl.Manager) error {
+	if r.IPer == nil {
+		r.IPer = dynamicip.NewAWSIPer()
+	}
+
 	return ctrl.NewControllerManagedBy(mgr).
 		For(&networkingv1alpha1.DDNS{}).
 		Complete(r)
